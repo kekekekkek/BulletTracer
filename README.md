@@ -1,12 +1,12 @@
 # BulletTracer
-You probably already know what bullet tracing is? It is when a bullet trace is left in the air after your shot. With this plugin you will be able to use this feature, change the color of the bullet beam and its size.<br><br>Also, you will be able to adjust the color when hitting an enemy or just when shooting. Here's an example of what it looks like:<br><br>
-My POV: ![GIF1]()
-POV of another player: ![GIF2]()<br><br>
-Also, you can watch this short video to see how this plugin works.
+You probably already know what bullet tracing is? It is when a bullet trace is left in the air after your shot. With this plugin you will be able to use this feature, change the color of the bullet beam and its size.<br><br>Also, you will be able to adjust the color when hitting an enemy or just when shooting. Here's an example of what it looks like.<br><br>
+My POV:<br>![GIF1](https://github.com/kekekekkek/BulletTracer/blob/main/Images/1.gif)<br><br>
+POV of another player:<br>![GIF2](https://github.com/kekekekkek/BulletTracer/blob/main/Images/2.gif)<br><br>
+Also, you can watch this short [video](https://youtu.be/_9UiKlCPguY) to see how this plugin works.
 
 # Installation
 Installing the plugin consists of several steps:
-1. [Download]() this plugin;
+1. [Download](https://github.com/kekekekkek/BulletTracer/archive/refs/heads/main.zip) this plugin;
 2. Open the `..\Sven Co-op\svencoop_addon\scripts\plugins` directory and place the `BulletTracer` folder there;
 3. Next, go to the `..\Sven Co-op\svencoop` folder and find there the text file `default_plugins.txt`;
 4. Open this file and paste the following text into it:
