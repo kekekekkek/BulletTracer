@@ -15,7 +15,7 @@ void MapInit() {
 void PluginInit()
 {
 	g_Module.ScriptInfo.SetAuthor("kek");
-	g_Module.ScriptInfo.SetContactInfo("No Information");
+	g_Module.ScriptInfo.SetContactInfo("https://github.com/kekekekkek/BulletTracer");
 	
 	g_Hooks.RegisterHook(Hooks::Player::ClientSay, @ClientSay);
 	g_Hooks.RegisterHook(Hooks::Player::ClientPutInServer, @ClientPutInServer);
