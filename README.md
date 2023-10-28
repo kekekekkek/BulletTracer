@@ -1,7 +1,7 @@
 # BulletTracer
 You probably already know what bullet tracing is? It is when a bullet trace is left in the air after your shot. With this plugin you will be able to use this feature, change the color of the bullet beam and its size.<br><br>Also, you will be able to adjust the color when hitting an enemy or just when shooting. Here's an example of what it looks like.<br><br>
-My POV:<br>![GIF1](https://github.com/kekekekkek/BulletTracer/blob/main/Images/1.gif)<br><br>
-POV of another player:<br>![GIF2](https://github.com/kekekekkek/BulletTracer/blob/main/Images/2.gif)<br><br>
+My POV:<br>![GIF1](https://github.com/kekekekkek/BulletTracer/blob/main/Images/2.gif)<br><br>
+POV of another player:<br>![GIF2](https://github.com/kekekekkek/BulletTracer/blob/main/Images/1.gif)<br><br>
 Also, you can watch this short [video](https://youtu.be/_9UiKlCPguY) to see how this plugin works.
 
 # Installation
