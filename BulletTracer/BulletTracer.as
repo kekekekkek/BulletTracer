@@ -245,7 +245,7 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 		
 			for (uint i = 0; i < strCommands.length(); i++)
 			{
-				if (pSayParam.GetArguments().Arg(0) == strCommands[i])
+				if (pSayParam.GetArguments().Arg(0).ToLowercase() == strCommands[i])
 				{
 					if (i > 0 && i < 3)
 						iNum = 0;
@@ -269,9 +269,9 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 				}
 			}
 		
-			if (pSayParam.GetArguments().Arg(0) == ".btr"
-				|| pSayParam.GetArguments().Arg(0) == "/btr"
-				|| pSayParam.GetArguments().Arg(0) == "!btr")
+			if (pSayParam.GetArguments().Arg(0).ToLowercase() == ".btr"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "/btr"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "!btr")
 			{
 				dSaveParams[iPlayerIndex][0] = 1;
 				dSaveParams[iPlayerIndex][1] = 3;
@@ -293,9 +293,9 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 		//bte, bts, btt
 		if (iArgs == 2)
 		{
-			if (pSayParam.GetArguments().Arg(0) == ".bte"
-				|| pSayParam.GetArguments().Arg(0) == "/bte"
-				|| pSayParam.GetArguments().Arg(0) == "!bte")
+			if (pSayParam.GetArguments().Arg(0).ToLowercase() == ".bte"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "/bte"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "!bte")
 			{
 				string strState = pSayParam.GetArguments().Arg(1);
 				
@@ -325,9 +325,9 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 				return HOOK_HANDLED;
 			}
 			
-			if (pSayParam.GetArguments().Arg(0) == ".bts"
-				|| pSayParam.GetArguments().Arg(0) == "/bts"
-				|| pSayParam.GetArguments().Arg(0) == "!bts")
+			if (pSayParam.GetArguments().Arg(0).ToLowercase() == ".bts"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "/bts"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "!bts")
 			{
 				double dSize = 0.0;
 				string strSize = pSayParam.GetArguments().Arg(1);
@@ -360,9 +360,9 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 				return HOOK_HANDLED;
 			}
 			
-			if (pSayParam.GetArguments().Arg(0) == ".btt"
-				|| pSayParam.GetArguments().Arg(0) == "/btt"
-				|| pSayParam.GetArguments().Arg(0) == "!btt")
+			if (pSayParam.GetArguments().Arg(0).ToLowercase() == ".btt"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "/btt"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "!btt")
 			{
 				double dTime = 0.0;
 				string strTime = pSayParam.GetArguments().Arg(1);
@@ -440,9 +440,9 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 			
 			if (!bError)
 			{
-				if (pSayParam.GetArguments().Arg(0) == ".btc"
-					|| pSayParam.GetArguments().Arg(0) == "/btc"
-					|| pSayParam.GetArguments().Arg(0) == "!btc")
+				if (pSayParam.GetArguments().Arg(0).ToLowercase() == ".btc"
+					|| pSayParam.GetArguments().Arg(0).ToLowercase() == "/btc"
+					|| pSayParam.GetArguments().Arg(0).ToLowercase() == "!btc")
 				{
 					dSaveParams[iPlayerIndex][3] = dRed;
 					dSaveParams[iPlayerIndex][4] = dGreen;
@@ -451,9 +451,9 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 					g_PlayerFuncs.SayText(pPlayer, "[BTSuccess]: The trace color has been successfully changed!\n");
 				}
 				
-				if (pSayParam.GetArguments().Arg(0) == ".bthc"
-					|| pSayParam.GetArguments().Arg(0) == "/bthc"
-					|| pSayParam.GetArguments().Arg(0) == "!bthc")
+				if (pSayParam.GetArguments().Arg(0).ToLowercase() == ".bthc"
+					|| pSayParam.GetArguments().Arg(0).ToLowercase() == "/bthc"
+					|| pSayParam.GetArguments().Arg(0).ToLowercase() == "!bthc")
 				{
 					dSaveParams[iPlayerIndex][6] = dRed;
 					dSaveParams[iPlayerIndex][7] = dGreen;
