@@ -278,7 +278,7 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 					if (iNum != 5 || altAdminLevel >= ADMIN_YES)
 						g_PlayerFuncs.SayText(pPlayer, strDescriptions[iNum]);
 					else
-						g_PlayerFuncs.SayText(pPlayer, "[EBError]: This command is for admins only.\n");
+						g_PlayerFuncs.SayText(pPlayer, "[BTError]: This command is for admins only.\n");
 					
 					pSayParam.ShouldHide = true;
 					return HOOK_HANDLED;
