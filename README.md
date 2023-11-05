@@ -28,8 +28,10 @@ When you start the game and connect to your server, you will have the following 
 | `.bte`, `/bte` or `!bte` | `0` | `1` | `1` | Allows you to enable or disable this feature. | Usage: `.bte//bte/!bte <state>.` Example: `!bte 1` |
 | `.bts`, `/bts` or `!bts` | `1` | `5` | `3` | Allows you to set the beam size. | Usage: `.bts//bts/!bts <size>.` Example: `!bts 3` |
 | `.btt`, `/btt` or `!btt` | `0.1` | `1` | `0.5` | Allows you to set the beam disappearance time. | Usage: `.btt//btt/!btt <time>.` Example: `!btt 0.5` |
+| `.btao`, `/btao` or `!btao` | `0` | `1` | `1` | Allows you to enable this feature only for admins or for all players.<br>`0 - For everyone;`<br>`1 - Admins only.` | Usage: `.btao//btao/!btao <adminsonly>.` Example: `!btao 0` |
 | `.btr`, `/btr` or `!btr` | `-` | `-` | `-` | Allows you to reset the settings to the default settings. | `No arguments.` |
 
+**REMEMBER**: This plugin only works for admins. If you want the plugin to work for everyone, you need to enter the command `!btao 0` in chat.<br>
 **REMEMBER**: This plugin doesn't use the `WeaponSecondaryAttack` and `WeaponTertiaryAttack` hooks, as there will be some peculiarities to consider. You can finalize this yourself if you want.<br>
 **REMEMBER**: You can remove the restriction for commands such as beam length by simply editing some lines of code.<br>
 **REMEMBER**: Also, you can change the name of your sprite in the plugin code or put a different file in the directory.<br>
