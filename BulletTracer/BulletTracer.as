@@ -1,3 +1,5 @@
+bool bAdminsOnly = true;
+
 array<string> strSaveIds;
 array<array<double>> dSaveParams =
 {
@@ -129,6 +131,7 @@ HookReturnCode WeaponPrimaryAttack(CBasePlayer@ pPlayer, CBasePlayerWeapon@ pWea
 	int iIdsLength = strSaveIds.length();
 	
 	string strId = g_EngineFuncs.GetPlayerAuthId(pPlayer.edict());
+	AdminLevel_t altAdminLevel = g_PlayerFuncs.AdminLevel(pPlayer);
 
 	for (int i = 0; i < iIdsLength; i++)
 	{
@@ -141,12 +144,15 @@ HookReturnCode WeaponPrimaryAttack(CBasePlayer@ pPlayer, CBasePlayerWeapon@ pWea
 	
 	if (dSaveParams.length() > 0)
 	{
-		if (dSaveParams[iPlayerIndex][0] == 1)
+		if (!bAdminsOnly || altAdminLevel >= ADMIN_YES)
 		{
-			cColor cTraceColor(int(dSaveParams[iPlayerIndex][3]), int(dSaveParams[iPlayerIndex][4]), int(dSaveParams[iPlayerIndex][5]));
-			cColor cTraceHitColor(int(dSaveParams[iPlayerIndex][6]), int(dSaveParams[iPlayerIndex][7]), int(dSaveParams[iPlayerIndex][8]));
-			
-			DrawBulletTrace(pPlayer, pWeapon, cTraceColor, cTraceHitColor, int(dSaveParams[iPlayerIndex][1]), dSaveParams[iPlayerIndex][2], true);
+			if (dSaveParams[iPlayerIndex][0] == 1)
+			{
+				cColor cTraceColor(int(dSaveParams[iPlayerIndex][3]), int(dSaveParams[iPlayerIndex][4]), int(dSaveParams[iPlayerIndex][5]));
+				cColor cTraceHitColor(int(dSaveParams[iPlayerIndex][6]), int(dSaveParams[iPlayerIndex][7]), int(dSaveParams[iPlayerIndex][8]));
+				
+				DrawBulletTrace(pPlayer, pWeapon, cTraceColor, cTraceHitColor, int(dSaveParams[iPlayerIndex][1]), dSaveParams[iPlayerIndex][2], true);
+			}
 		}
 	}
 	
@@ -194,6 +200,8 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 	CBasePlayer@ pPlayer = pSayParam.GetPlayer();
 	string strId = g_EngineFuncs.GetPlayerAuthId(pPlayer.edict());
 	
+	AdminLevel_t altAdminLevel = g_PlayerFuncs.AdminLevel(pPlayer);
+	
 	for (int i = 0; i < iIdsLength; i++)
 	{
 		if (strId == strSaveIds[i])
@@ -226,7 +234,8 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 			".bthc", "/bthc", "!bthc",
 			".bte", "/bte", "!bte",
 			".bts", "/bts", "!bts",
-			".btt", "/btt", "!btt"
+			".btt", "/btt", "!btt",
+			".btao", "/btao", "!btao",
 		};
 		
 		array<string> strDescriptions =
@@ -236,6 +245,7 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 			"[BTInfo]: Usage: .bte//bte/!bte <state>. Example: !bte 1\n",
 			"[BTInfo]: Usage: .bts//bts/!bts <size>. Example: !bts 3\n",
 			"[BTInfo]: Usage: .btt//btt/!btt <time>. Example: !btt 0.5\n",
+			"[BTInfo]: Usage: .btao//btao/!btao <adminsonly>. Example: !btao 0\n",
 		};
 		
 		//btr and info
@@ -261,8 +271,14 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 						
 					if (i > 12 && i < 15)
 						iNum = 4;
-				
-					g_PlayerFuncs.SayText(pPlayer, strDescriptions[iNum]);
+						
+					if (i > 15 && i < 18)
+						iNum = 5;
+						
+					if (iNum != 5 || altAdminLevel >= ADMIN_YES)
+						g_PlayerFuncs.SayText(pPlayer, strDescriptions[iNum]);
+					else
+						g_PlayerFuncs.SayText(pPlayer, "[EBError]: This command is for admins only.\n");
 					
 					pSayParam.ShouldHide = true;
 					return HOOK_HANDLED;
@@ -290,9 +306,43 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 			}
 		}
 		
-		//bte, bts, btt
+		//btao, bte, bts, btt
 		if (iArgs == 2)
 		{
+			if (pSayParam.GetArguments().Arg(0).ToLowercase() == ".btao"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "/btao"
+				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "!btao")
+			{
+				if (altAdminLevel >= ADMIN_YES)
+				{
+					string strValue = pSayParam.GetArguments().Arg(1);
+					
+					if (IsNaN(strValue))
+					{
+						g_PlayerFuncs.SayText(pPlayer, "[BTError]: The argument is not a number!\n");
+						bError = true;
+					}
+					
+					if (!bError)
+					{
+						(atoi(strValue) >= 1 ? bAdminsOnly = true : bAdminsOnly = false);				
+						g_PlayerFuncs.SayTextAll(pPlayer, (bAdminsOnly == true
+							? "[BTInfo]: The bullet tracer function is now available only for admins.\n" 
+							: "[BTInfo]: The bullet tracer function is now available to everyone!\n"));
+					}
+					
+					pSayParam.ShouldHide = true;
+					return HOOK_HANDLED;
+				}
+				else
+				{
+					g_PlayerFuncs.SayText(pPlayer, "[BTError]: This command is for admins only.\n");
+				
+					pSayParam.ShouldHide = true;
+					return HOOK_HANDLED;
+				}
+			}
+		
 			if (pSayParam.GetArguments().Arg(0).ToLowercase() == ".bte"
 				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "/bte"
 				|| pSayParam.GetArguments().Arg(0).ToLowercase() == "!bte")
@@ -308,12 +358,7 @@ HookReturnCode ClientSay(SayParameters@ pSayParam)
 				if (!bError)
 				{
 					double dEnabled = int(atod(strState));
-				
-					if (dEnabled > 1.0)
-						dEnabled = 1.0;
-					
-					if (dEnabled < 0.0)
-						dEnabled = 0.0;
+					dEnabled = Math.clamp(0.0, 1.0, dEnabled);
 				
 					dSaveParams[iPlayerIndex][0] = dEnabled;					
 					g_PlayerFuncs.SayText(pPlayer, (dEnabled == 1
